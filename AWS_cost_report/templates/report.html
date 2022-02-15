@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .tables{
+            boder:1px;
+            text-align:right;
+        }
+    </style>
+</head>
+<body>
+<div id="report_container">
+    {% load humanize %}
+    {% for data, month, sum in results %}
+    <h2>{{ month }}월 총 사용액 : {{sum|intcomma}}원 </h2>
+    {% autoescape off %}{{ data }}{% endautoescape %}
+    <br><br>
+    {% endfor %}
+</div>
+</body>
+</html>

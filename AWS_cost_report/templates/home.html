@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS Cost Report</title>
+    <script src="https://code.jquery.com/jquery-1.7.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <script>
+
+        <!-- 이미지 파일 경로 리스트를 돌면서 img 태그에 src로 추가 -->
+        function display(data){
+            for(var i in data){
+                console.log(data[i]);
+                document.images[i].src = data[i];
+            }
+        };
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">AWS Cost Report</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+<!--    <div class="navbar-collapse collapse show" id="navbarColor02" style="">-->
+<!--      <ul class="navbar-nav me-auto">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link active" href="#">Home-->
+<!--            <span class="visually-hidden">(current)</span>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Features</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Pricing</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">About</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item dropdown">-->
+<!--          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>-->
+<!--          <div class="dropdown-menu">-->
+<!--            <a class="dropdown-item" href="#">Action</a>-->
+<!--            <a class="dropdown-item" href="#">Another action</a>-->
+<!--            <a class="dropdown-item" href="#">Something else here</a>-->
+<!--            <div class="dropdown-divider"></div>-->
+<!--            <a class="dropdown-item" href="#">Separated link</a>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <form class="d-flex">-->
+<!--        <input class="form-control me-sm-2" type="text" placeholder="Search">-->
+<!--        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>-->
+<!--      </form>-->
+<!--    </div>-->
+  </div>
+</nav>
+<div class="content_area">
+
+    <div class="first_row">
+    <!-- 정보 입력 카드 영역 -->
+        <div class="float-left card border-secondary mb-3" style="max-width: 30rem;">
+          <div class="card-header" style="font-size:1.25rem">AWS Cost Report</div>
+          <div class="card-body">
+            <h4 class="card-title"></h4>
+              <br><p class="card-text">조회하려는 파일 번호, 시작월, 종료월을 입력하세요.</p><br>
+              <form method="post" action="/cost_report">
+                {% csrf_token %}
+              <table class="table table-hover">
+                <tbody>
+                <tr class="">
+                  <th scope="row" style="padding-top:15px">Account ID</th>
+                  <td>
+                      <input type="text" placeholder="AWS Account ID  ex)101-103,201-202" class="form-control" id="file_no" name="file_no">
+                  </td>
+                </tr>
+                <tr class="">
+                  <th scope="row" style="padding-top:15px">시작월</th>
+                  <td><input type="text" placeholder="시작월을 입력하세요" class="form-control" id="start_date" name="start_date"></td>
+                </tr>
+                <tr class="">
+                  <th scope="row" style="padding-top:15px">종료월</th>
+                  <td><input type="text" placeholder="종료월을 입력하세요(시작월과 같으면 *)" class="form-control" id="end_date" name="end_date"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <input class="btn btn-secondary" type="submit" value="리포트보기" style="float: right; font-size:1rem" id="search"></input>
+            <input class="btn btn-secondary" type="button" onclick="alert('조회중입니다 잠시만 기다려주세요');location.href='/look_up'" value="API호출" style="float: left; font-size:1rem; margin-right:5px;" id="report"></input>
+              </form>
+          </div>
+        </div>
+    <!-- 정보 입력 카드 영역 끝 -->
+        <img class="float-left" src="" height="400px">
+
+    </div>
+
+    <div class="center_item mx-3" id="report_container">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+        <img src="" width="100%">
+
+    </div><br><br><br>
+
+
+</div>
+<!--<footer id="footer" class="bg-secondary fixed-bottom">-->
+<!--    <div class="container">-->
+<!--    	<p class="m-0 text-center text-white">Copyright &copy; CSRF TEST OPENEG 2021</p>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--날짜 선택 요소 부트스트랩 사용을 위한 cnd-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/litepicker/2.0.11/litepicker.js"></script>
+</body>
+<!--날짜 선택 요소 부트스트랩 사용을 위한 JS-->
+<!--<script>-->
+<!--    let picker = new Litepicker({-->
+<!--      element: document.getElementById('start_date'),-->
+<!--      elementEnd: document.getElementById('end_date'),-->
+<!--      singleMode: false,-->
+<!--      allowRepick: true,-->
+<!--    });-->
+<!--</script>-->
+</html>
